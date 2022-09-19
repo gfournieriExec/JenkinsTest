@@ -25,7 +25,7 @@ pipeline {
                 // }
                 echo "building the application.."
                 echo "building version ${NEW_VERSION }"
-                sh "mvn install"
+                // sh "mvn install"
             }
         }
         stage('test') {
@@ -47,7 +47,7 @@ pipeline {
                     usernamePassword(credentials : 'server-credentials', usernameVariable : USER, passwordVariable : PWD )
                 ]){
 
-                sh "some script ${USER} ${PWD}"
+                echo "some script ${USER} ${PWD}"
 
                 }
             }
