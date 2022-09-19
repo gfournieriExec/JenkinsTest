@@ -6,9 +6,9 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('server-credentials')
     }
 
-    tools{
-        maven 'Maven'
-    }
+    // tools{
+    //     maven 'Maven'
+    // }
 
     parameters {
         // string (name :'VERSION', defaultValue : '', description: 'version to deploy on prod')
