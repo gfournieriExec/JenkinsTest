@@ -1,3 +1,5 @@
+dev gv 
+
 pipeline {
     agent any
 
@@ -16,6 +18,13 @@ pipeline {
         booleanParam(name : 'executeTests', defaultValue: true, description : '' )
     }
     stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage('build') {
             steps {
                 // when{
@@ -23,7 +32,9 @@ pipeline {
                 //         BRANCH_NAME == 'dev' || BRANCH_NAME == 'main'
                 //     }
                 // }
-                echo "building the application.."
+                script {
+                    gv.buildApp()
+                }
                 echo "building version ${NEW_VERSION }"
                 // sh "mvn install"
             }
@@ -35,12 +46,16 @@ pipeline {
                 }
             }
             steps {
-                echo "testing the application..."
+                    script {
+                        gv.testApp()
+                    }
             }
         }
         stage('deploying') {
             steps {
-                echo "deploying the application... ${VERSION}"
+                    script {
+                        gv.deployingApp()
+                    }
                 // echo "deploying with ${SERVER_CREDENTIALS}"
                 // sh "${SERVER_CREDENTIALS}"
                 // withCredentials([
